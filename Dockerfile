@@ -24,6 +24,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     openssl \
     ssh \
     locales \
+    gnupg \
     less \
     sudo \
     mysql-server \
