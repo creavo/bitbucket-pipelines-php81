@@ -30,6 +30,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     mysql-server \
     redis-server
 
+# add node-dependency
+RUN mkdir -p /etc/apt/keyrings && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+
 # add yarn-dependency
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
@@ -39,6 +43,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     yarn \
+    nodejs \
     php-pear php8.1-mysql php8.1-zip php8.1-xml php8.1-mbstring php8.1-curl php8.1-pdo php8.1-tokenizer php8.1-cli php8.1-imap php8.1-intl php8.1-gd php8.1-soap php8.1-gmp php-imagick \
     apache2 libapache2-mod-php8.1 \
     --no-install-recommends
